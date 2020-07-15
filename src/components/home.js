@@ -262,8 +262,7 @@ export default class HomeComponent extends Component {
                         pointerOnHover
                         selectableRows
                         striped
-                        pagination
-                       
+                        pagination                       
                         onRowClicked={this.redirectSubList}
 
                     />
