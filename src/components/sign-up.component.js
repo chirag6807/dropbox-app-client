@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import axios from 'axios';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast,Flip} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -33,7 +33,7 @@ export default class SignUpComponent extends Component {
         e.preventDefault();
         if (this.validateForm()) {
             try {
-                const response = await axios.post(
+                await axios.post(
                     'http://localhost:3001/login/AddUser', {
                     userName,
                     email,
@@ -42,14 +42,14 @@ export default class SignUpComponent extends Component {
                     lastName
                 },
                 );           
-                toast.success("User Added Successfully!");
+                toast.success("User Added Successfully!",{transition:Flip,autoClose:3000});
                 setTimeout(function () {
                   //  window.location.replace('/');
                     window.history.pushState(null, null,  window.location.replace('/'));
                 }, 1000);           
               
             } catch (error) {
-                toast.error(error.response.data.error);
+                toast.error(error.response.data.error,{transition:Flip,autoClose:3000});
             }
         }
     }

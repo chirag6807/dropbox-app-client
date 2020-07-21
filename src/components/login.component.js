@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Button } from '@material-ui/core';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast,Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default class LoginList extends Component {
@@ -37,14 +36,12 @@ export default class LoginList extends Component {
                 localStorage.setItem('userId', response.data.userId);
                 localStorage.setItem('userName', response.data.userName);
                 window.history.pushState(null, null, window.location.replace('/file-store/Home'));
-             //   window.location.replace('/file-store');
-                //set local storage data
                 this.setState({
                     email: '',
                     password: ''
                 })
             } catch (error) {
-                toast.error(error.response.data.error);
+                toast.error(error.response.data.error,{transition:Flip,autoClose:3000});
             }
         }
     }
@@ -53,13 +50,10 @@ export default class LoginList extends Component {
         let fields = this.state;
         let errors = {};
         let formIsValid = true;
-
-
         if (!fields["email"]) {
             formIsValid = false;
             errors["email"] = "*Please enter email.";
         }
-
         if (fields["email"] !== "") {
             //regular expression for email validation
             var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
@@ -68,21 +62,16 @@ export default class LoginList extends Component {
                 errors["email"] = "*Please enter valid email.";
             }
         }
-
         if (!fields["password"]) {
             formIsValid = false;
             errors["password"] = "*Please enter your password.";
         }
-
-
         this.setState({
             errors: errors
         });
         console.log(this.state.errors);
         return formIsValid;
     }
-
-
 
     render() {
         return (
